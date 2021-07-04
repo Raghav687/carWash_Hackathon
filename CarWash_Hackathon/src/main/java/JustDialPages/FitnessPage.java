@@ -14,24 +14,42 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+
 public class FitnessPage {
-	public Object[] fitness(WebDriver driver) throws IOException {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(By.id("ContextualHotkey_27")).click();
-		driver.findElement(By.xpath("//*[@id=\'mnintrnlbnr\']/ul/li[3]/a/span[2]")).click();
-		List<WebElement> options=driver.findElements(By.xpath("//*[@id='mnintrnlbnr']/ul/li/a/span[2]"));
-		
+	public Object[] fitness(WebDriver driver,ExtentTest test,ExtentReports extent) throws IOException {
 		Object[] output = new Object[20];
 		Object[][] obj = new Object[20][1];
 		
 		obj[0][0] = "Types of Fitness Gym";
 		
-		int count = 0;
-		for (int i=0;i<options.size();i++)
-		{
-			output[count] = options.get(i).getAttribute("title");
-			obj[count][0] = options.get(i).getAttribute("title");
-			count++;
+		
+		try {
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.findElement(By.id("ContextualHotkey_27")).click();
+			driver.findElement(By.xpath("//*[@id=\'mnintrnlbnr\']/ul/li[3]/a/span[2]")).click();
+			List<WebElement> options=driver.findElements(By.xpath("//*[@id='mnintrnlbnr']/ul/li/a/span[2]"));
+			
+			int count = 0;
+			for (int i=0;i<options.size();i++)
+			{
+				output[count] = options.get(i).getAttribute("title");
+				obj[count][0] = options.get(i).getAttribute("title");
+				count++;
+			}
+			
+			test = extent.createTest("Searching Fitness page");
+	  		test.log(Status.INFO, "This step shows usage of log,info");
+			test.info("This test shows searching of fintess regimes and printing on Console");
+			test.pass("Passed",MediaEntityBuilder.createScreenCaptureFromPath("screenshot5.png").build());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			test.fail("Failed",MediaEntityBuilder.createScreenCaptureFromPath("screenshot5.png").build());
 		}
 		
 		XSSFWorkbook workbook = new XSSFWorkbook();

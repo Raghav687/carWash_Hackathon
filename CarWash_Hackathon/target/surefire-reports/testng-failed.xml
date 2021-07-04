@@ -5,7 +5,12 @@
     <classes>
       <class name="JustDialPages.Main">
         <methods>
-          <include name="Fitness"/>
+          <include name="CarServiceInfoSearching"/>
+          <include name="searchTextBoxAndRemoveAd"/>
+          <include name="setup"/>
+          <include name="FitnessPage"/>
+          <include name="ListingPage"/>
+          <include name="closeBrowser"/>
         </methods>
       </class> <!-- JustDialPages.Main -->
     </classes>

@@ -11,11 +11,17 @@ import org.openqa.selenium.WebDriver;
 
 public class ScreenShot {
 	public void screenshot(WebDriver driver) throws IOException {
-		Date currentDate = new Date();
-		
-		String screenShotFileName = currentDate.toString().replace(" ", "-").replace(":", "-");
 		
 		File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshotFile,new File(".//ScreenShots//"+screenShotFileName+".png"));
+		if(driver.getTitle().equalsIgnoreCase("Car Wash Service")) {
+			FileUtils.copyFile(screenshotFile,new File(".//ScreenShots//"+"CarWashServicePageInfo"+".png"));
+		}
+		else if(driver.getTitle().equalsIgnoreCase("FreeListing")) {
+			FileUtils.copyFile(screenshotFile,new File(".//ScreenShots//"+"FreeListingPageInfo"+".png"));
+		}
+		else if(driver.getTitle().equalsIgnoreCase("Fitness Page")) {
+			FileUtils.copyFile(screenshotFile,new File(".//ScreenShots//"+"FitnessPageInfo"+".png"));
+		}
+		
 	}
 }
